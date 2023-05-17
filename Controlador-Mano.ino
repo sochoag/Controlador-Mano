@@ -1,18 +1,19 @@
 #include "Motor.h"
 #include "pins.h"
 #include "variables.h"
-#include "routine.h"
 #include "oled.h"
 #include "encoder.h"
+#include "routine.h"
 
-void(* resetFunc) (void) = 0;
+void (*resetFunc)(void) = 0;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   oledInit();
   initRotary();
-  while(!isSet){
+  while (!isSet)
+  {
     checkRotary();
     checkButton();
   }
@@ -22,7 +23,6 @@ void setup()
     dedo[i].init(motorIn1[i], motorIn2[i], motorPWM[i], motorFC1[i], motorFC2[i]);
   }
   digitalWrite(stby, HIGH);
-  initEmergencyStop();
 }
 
 void loop()
@@ -32,7 +32,12 @@ void loop()
     firstRoutine();
     secondRoutine();
   }
+  Serial.println("Out of loop");
+  stopFlag = false;
+  routineFlag = false;
+  emergencyFlag = false;
   emergencyScreen();
   secondRoutine();
+  delay(1000);
   resetFunc();
 }

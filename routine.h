@@ -4,79 +4,94 @@ void firstRoutine()
 {
   Serial.println("FirstRoutine");
   // Acciono y espero que el primer dedo se cierre completamente
-  if (dedoState[0])
+  if (!emergencyFlag)
   {
-    while (!dedo[0].getEndstop1())
+    if (dedoState[0])
     {
-      dedo[0].forward(vel);
-    }
-    dedo[0].stop();
-  }
-  // Acciono los demas dedos
-  for (int i = 1; i < numDedos; i++)
-  {
-    if (dedoState[i])
-    {
-      dedo[i].forward(vel);
-    }
-  }
-  while (!routineFlag)
-  {
-    byte movingCount = 0;
-    for (int i = 0; i < numDedos; i++)
-    {
-      if (dedo[i].getEndstop1())
+      while (!dedo[0].getEndstop1() && !emergencyFlag)
       {
-        dedo[i].stop();
+        checkButton();
+        dedo[0].forward(vel);
       }
-      if(dedo[i].moving()){
-        movingCount++;
+      dedo[0].stop();
+    }
+    // Acciono los demas dedos
+    for (int i = 1; i < numDedos; i++)
+    {
+      if (dedoState[i])
+      {
+        dedo[i].forward(vel);
       }
     }
-    if(movingCount == 0){
-      routineFlag = true;
+    while (!routineFlag)
+    {
+      checkButton();
+      byte movingCount = 0;
+      for (int i = 0; i < numDedos; i++)
+      {
+        if (dedo[i].getEndstop1())
+        {
+          dedo[i].stop();
+        }
+        if (dedo[i].moving())
+        {
+          movingCount++;
+        }
+      }
+      if (movingCount == 0)
+      {
+        routineFlag = true;
+      }
     }
+    routineFlag = false;
   }
-  routineFlag = false;
 }
 
 void secondRoutine()
 {
   Serial.println("SecondRoutine");
   // Acciono los demas dedos
-  for (int i = 1; i < numDedos; i++)
+  if (!emergencyFlag)
   {
-    if (dedoState[i])
+
+    for (int i = 1; i < numDedos; i++)
     {
-      dedo[i].reverse(vel);
-    }
-  }
-  while (!routineFlag)
-  {
-    byte movingCount = 0;
-    for (int i = 0; i < numDedos; i++)
-    {
-      if (dedo[i].getEndstop2())
+      if (dedoState[i])
       {
-        dedo[i].stop();
-      }
-      if(dedo[i].moving()){
-        movingCount++;
+        dedo[i].reverse(vel);
       }
     }
-    if(movingCount == 0){
-      routineFlag = true;
-    }
-  }
-  routineFlag = false;
-  // Acciono y espero que el primer dedo se cierre completamente
-  if (dedoState[0])
-  {
-    while (!dedo[0].getEndstop2())
+    while (!routineFlag)
     {
-      dedo[0].reverse(vel);
+      checkButton();
+      byte movingCount = 0;
+      for (int i = 0; i < numDedos; i++)
+      {
+        if (dedo[i].getEndstop2())
+        {
+          dedo[i].stop();
+        }
+        if (dedo[i].moving())
+        {
+          movingCount++;
+        }
+      }
+      if (movingCount == 0)
+      {
+        routineFlag = true;
+      }
     }
-    dedo[0].stop();
+    routineFlag = false;
+    // Acciono y espero que el primer dedo se cierre completamente
+    if (dedoState[0])
+    {
+      while (!dedo[0].getEndstop2() && !emergencyFlag)
+      {
+        checkButton();
+        dedo[0].reverse(vel);
+      }
+      dedo[0].stop();
+    }
   }
 }
 #endif

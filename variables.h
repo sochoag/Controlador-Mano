@@ -7,15 +7,14 @@ Motor dedo[5];
 bool routineFlag = false;
 bool stopFlag = false;
 bool isSet = false;
+bool emergencyFlag = false;
 
 byte velIndex = 0;
 String velOption[] = {"Lento", "Medio", "Rapido"};
-byte velValue[] = {64,127,255};
+byte velValue[] = {64, 127, 255};
 byte vel = velValue[0];
 
 bool dtLastState = false;
-int menuOption=1;
-
-
+int menuOption = 1;
 
 #endif
