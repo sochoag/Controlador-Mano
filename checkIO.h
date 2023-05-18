@@ -1,19 +1,13 @@
 void checkMotors()
 {
-  for (int i = 0; i < numDedos; i++)
-  {
-    dedo[i].forward(vel);
-  }
+  Serial.println("Forward");
+  dedo[2].forward(255);
   delay(1000);
-  for (int i = 0; i < numDedos; i++)
-  {
-    dedo[i].reverse(vel);
-  }
+  Serial.println("Reverse");
+  dedo[2].reverse(255);
   delay(1000);
-  for (int i = 0; i < numDedos; i++)
-  {
-    dedo[i].stop();
-  }
+  Serial.println("Stop");
+  dedo[2].stop();
   delay(1000);
 }
 
@@ -25,7 +19,8 @@ void checkEndStop()
       Serial.println("Endstop 1 - "+String(i));
     }
     if(dedo[i].getEndstop2()){
-      Serial.println("Endstop 1 - "+String(i));
+      Serial.println("Endstop 2 - "+String(i));
     }
   }
+  delay(500);
 }
