@@ -14,6 +14,12 @@ void firstRoutine()
         dedo[0].forward(vel);
       }
       dedo[0].stop();
+      while (!dedo[0].getEndstop2() && !emergencyFlag)
+      {
+        checkButton();
+        dedo[0].reverse(vel);
+      }
+      dedo[0].stop();
     }
     // Acciono los demas dedos
     for (int i = 1; i < numDedos; i++)
@@ -83,15 +89,15 @@ void secondRoutine()
     }
     routineFlag = false;
     // Acciono y espero que el primer dedo se cierre completamente
-    if (dedoState[0])
-    {
-      while (!dedo[0].getEndstop2() && !emergencyFlag)
-      {
-        checkButton();
-        dedo[0].reverse(vel);
-      }
-      dedo[0].stop();
-    }
+    // if (dedoState[0])
+    // {
+    //   while (!dedo[0].getEndstop2() && !emergencyFlag)
+    //   {
+    //     checkButton();
+    //     dedo[0].reverse(vel);
+    //   }
+    //   dedo[0].stop();
+    // }
   }
 }
 #endif

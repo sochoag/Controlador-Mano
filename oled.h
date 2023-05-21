@@ -26,23 +26,23 @@ void showMenu()
   oled.println("MENU");
   if (menuOption == 1)
     oled.print(">");
-  oled.print("Motor 1:");
+  oled.print("Pulgar:");
   oled.println(dedoState[0] ? "SI" : "NO");
   if (menuOption == 2)
     oled.print(">");
-  oled.print("Motor 2:");
+  oled.print("Indice:");
   oled.println(dedoState[1] ? "SI" : "NO");
   if (menuOption == 3)
     oled.print(">");
-  oled.print("Motor 3:");
+  oled.print("Medio:");
   oled.println(dedoState[2] ? "SI" : "NO");
   if (menuOption == 4)
     oled.print(">");
-  oled.print("Motor 4:");
+  oled.print("Anular:");
   oled.println(dedoState[3] ? "SI" : "NO");
   if (menuOption == 5)
     oled.print(">");
-  oled.print("Motor 5:");
+  oled.print("Menique:");
   oled.println(dedoState[4] ? "SI" : "NO");
   if (menuOption == 6)
     oled.print(">");
@@ -57,23 +57,23 @@ void showMenu()
   Serial.println("------------------------");
   if (menuOption == 1)
     Serial.print(">");
-  Serial.print("Motor 1:\t");
+  Serial.print("Pulgar:\t");
   Serial.println(dedoState[0]);
   if (menuOption == 2)
     Serial.print(">");
-  Serial.print("Motor 2:\t");
+  Serial.print("Indice:\t");
   Serial.println(dedoState[1]);
   if (menuOption == 3)
     Serial.print(">");
-  Serial.print("Motor 3:\t");
+  Serial.print("Medio:\t");
   Serial.println(dedoState[2]);
   if (menuOption == 4)
     Serial.print(">");
-  Serial.print("Motor 4:\t");
+  Serial.print("Anular:\t");
   Serial.println(dedoState[3]);
   if (menuOption == 5)
     Serial.print(">");
-  Serial.print("Motor 5:\t");
+  Serial.print("Menique:\t");
   Serial.println(dedoState[4]);
   Serial.println("------------------------");
   if (menuOption == 6)
